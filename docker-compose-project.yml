@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_DB=postgres
+    volumes:
+      - odoo_db:/var/lib/postgresql/data
+  odoo:
+    image: odoo:latest
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    volumes:
+      - odoo_addons:/mnt/extra-addons
+      - odoo_config:/etc/odoo
+    environment:
+      - host:db
+      - user:odoo
+      - password:odoo
+volumes:
+  odoo_db:
+  odoo_addons:
+  odoo_config:
