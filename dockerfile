@@ -7,9 +7,13 @@ RUN apk add --no-cache git
 RUN git clone -q https://github.com/najasoft/todo-app.git
 
 #Set the working directory
-WORKDIR /todo-app/app
+WORKDIR /app
+
+# Copier le contenu du répertoire local dans le dossier app de l'image
+COPY ..
 
 #Install the dependencies
 Run yarn install --production
 
-CMD ["node", "/src/index.js"]
+# Exécuter l'application
+CMD ["node", "/app/src/index.js"]
